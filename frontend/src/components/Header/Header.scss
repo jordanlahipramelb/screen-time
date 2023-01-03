@@ -1,0 +1,127 @@
+.header {
+	display: flex;
+	position: fixed;
+	flex-direction: row;
+	justify-content: space-around;
+	width: 100%;
+	z-index: 100;
+	align-items: center;
+	background-color: #292a2e;
+	font-family: "Raleway", sans-serif;
+	padding-bottom: 0.5rem;
+	padding-top: 1rem;
+	box-shadow: 0px 1px 5px black;
+	color: white;
+
+	.left {
+		display: flex;
+		gap: 3rem;
+
+		a {
+			color: white;
+			text-decoration: none;
+		}
+
+		.logo {
+			font-size: 2rem;
+
+			@media (max-width: 500px) {
+				display: none;
+			}
+		}
+
+		.logo-mobile {
+			font-size: 2rem;
+			display: none;
+
+			@media (max-width: 500px) {
+				display: inline;
+			}
+		}
+
+		.menu {
+			align-items: center;
+			a {
+				color: white;
+				text-decoration: none;
+				border-bottom: 0.1875rem solid #00000000;
+			}
+
+			a.active,
+			a:hover,
+			a:focus {
+				border-bottom: 0.1875rem solid #00a9c7;
+			}
+		}
+	}
+
+	.right {
+		display: flex;
+		align-items: center;
+
+		.signin-btn {
+			color: white;
+			background-color: transparent;
+			text-decoration: none;
+			border: transparent;
+			padding: 10px 18px;
+			margin: 3px;
+			cursor: pointer;
+		}
+
+		.signup-btn,
+		.logout-btn {
+			color: white;
+			background-color: rgba(0, 183, 255, 0.774);
+			text-decoration: none;
+			border: transparent;
+
+			border-radius: 5px;
+			padding: 5px 25px;
+			transition: 0.3s;
+			margin: 3px;
+			cursor: pointer;
+		}
+	}
+
+	.hamburger {
+		z-index: 11;
+	}
+
+	.mobile-menu {
+		width: 100%;
+		height: 100vh;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: #222831f1;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+		font-size: 1.6rem;
+		padding-left: 0;
+
+		a {
+			color: white;
+			font-size: 2rem;
+			text-decoration: none;
+		}
+	}
+
+	.d-none {
+		display: none;
+	}
+
+	@media (max-width: 800px) {
+		.mobile-none {
+			display: none;
+		}
+	}
+
+	@media (min-width: 800px) {
+		.d-md-none {
+			display: none;
+		}
+	}
+}

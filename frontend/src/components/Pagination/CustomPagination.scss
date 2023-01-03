@@ -1,0 +1,10 @@
+.custom-pagination {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+
+	.MuiPaginationItem-text {
+		color: rgb(243, 243, 243) !important;
+	}
+}

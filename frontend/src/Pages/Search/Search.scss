@@ -1,0 +1,18 @@
+.search-page {
+	.search-field {
+		display: flex;
+		margin: 15px 0;
+
+		.MuiInputBase-input,
+		.MuiFormLabel-root {
+			color: white !important;
+		}
+
+		.MuiButtonBase-root {
+			background-color: rgb(167, 167, 167) !important;
+		}
+	}
+	.Mui-selected {
+		color: white !important;
+	}
+}

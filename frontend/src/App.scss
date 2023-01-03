@@ -1,0 +1,35 @@
+* {
+	scroll-behavior: smooth;
+}
+
+.App {
+	min-height: 100vh;
+	padding-bottom: 5rem;
+	background-color: #585a68;
+	color: white;
+
+	.page-title {
+		display: flex;
+		justify-content: center;
+		text-transform: uppercase;
+		font-family: "Raleway", sans-serif;
+		font-size: 3vw;
+		letter-spacing: 3px;
+		padding: 5px;
+		border-radius: 50px;
+		color: white;
+
+		@media (max-width: 800px) {
+			font-size: 6.3vw;
+		}
+	}
+
+	.container {
+		padding-top: 8rem;
+		.content {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-around;
+		}
+	}
+}

@@ -1,0 +1,39 @@
+.content-card {
+	display: flex;
+	flex-direction: column;
+	width: 200px;
+	padding: 3px;
+	margin: 10px 0;
+	background-color: #272729;
+	border-radius: 5px;
+	position: relative;
+	font-family: "Raleway", sans-serif;
+	cursor: pointer;
+
+	&:hover {
+		background-color: rgb(212, 212, 212);
+		color: black;
+	}
+
+	.poster {
+		border-radius: 2px;
+	}
+
+	.title {
+		width: 100%;
+		text-align: center;
+		padding: 3px 0;
+		font-weight: bold;
+	}
+
+	// .subTitle {
+	// 	display: flex;
+	// 	justify-content: space-between;
+	// 	padding: 0 2px;
+	// 	padding-bottom: 3px;
+	// }
+
+	@media (max-width: 600px) {
+		width: 46%;
+	}
+}

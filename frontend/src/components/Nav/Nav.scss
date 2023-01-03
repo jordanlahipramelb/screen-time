@@ -1,0 +1,19 @@
+.MuiBottomNavigation-root {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	background: #272729 !important;
+	z-index: 100;
+
+	button {
+		color: rgb(167, 167, 167);
+
+		svg {
+			color: rgb(167, 167, 167);
+		}
+
+		.Mui-selected {
+			color: white;
+		}
+	}
+}
