@@ -2,6 +2,10 @@ import { Button, Stack, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Login/Auth.scss";
+// Firebase
+import { onAuthStateChanged } from "firebase/auth";
+import { firebaseAuth } from "../../utils/firebase-config";
+import { UserAuth } from "../../context/AuthContext";
 
 const SignUp = () => {
 	const [formData, setFormData] = useState({
@@ -9,6 +13,7 @@ const SignUp = () => {
 		password: "",
 	});
 	const navigate = useNavigate();
+	const { signUp } = UserAuth();
 
 	/** Updates form field when typing */
 
@@ -19,10 +24,20 @@ const SignUp = () => {
 			[name]: value,
 		}));
 	};
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		try {
+			await signUp(formData.email, formData.password);
+			navigate("/trending");
+		} catch (error) {
+			console.log(error);
+		}
+		console.log(formData);
 	};
+
+	onAuthStateChanged(firebaseAuth, (currentUser) => {
+		if (currentUser) navigate("/trending");
+	});
 
 	return (
 		<div className="auth-page">
@@ -51,7 +66,7 @@ const SignUp = () => {
 							onChange={handleChange}
 						/>
 					</Stack>
-					<Button>Log In</Button>
+					<Button onClick={handleSubmit}>Sign Up</Button>
 				</form>
 			</div>
 		</div>

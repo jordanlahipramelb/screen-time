@@ -5,9 +5,34 @@ import { Stack } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 
+import { UserAuth } from "../../context/AuthContext";
+import { firebaseAuth } from "../../utils/firebase-config";
+
 const Header = () => {
 	const [nav, setNav] = useState(false);
 	const handleClick = () => setNav(!nav); // sets nav true<>false
+	const { user, logOut } = UserAuth();
+
+	const loggedInUser = () => {
+		return (
+			<button className="logout-btn" onClick={() => logOut(firebaseAuth)}>
+				Log Out
+			</button>
+		);
+	};
+
+	const loggedOutUser = () => {
+		return (
+			<>
+				<Link to="/login" className="signin-btn">
+					Log In
+				</Link>
+				<Link to="/signup" className="signup-btn">
+					Sign Up
+				</Link>
+			</>
+		);
+	};
 
 	return (
 		<div className="header" onClick={() => window.scroll(0, 0)}>
@@ -26,19 +51,11 @@ const Header = () => {
 					<Link to="/tvshows">TV</Link>
 
 					<Link to="/search">Search</Link>
-
-					<Link to="/mylist">My List</Link>
+					{user ? <Link to="/mylist">My List</Link> : null}
 				</Stack>
 			</div>
 
-			<div className="right">
-				<Link to="/login" className="signin-btn">
-					Log In
-				</Link>
-				<Link to="/signup" className="signup-btn">
-					Sign Up
-				</Link>
-			</div>
+			<div className="right">{user ? loggedInUser() : loggedOutUser()}</div>
 
 			{/* Hamburger */}
 			<div onClick={handleClick} className="hamburger d-md-none">

@@ -11,6 +11,7 @@ import axios from "axios";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import "./ContentModal.scss";
 import { Stack } from "@mui/system";
+import { UserAuth } from "../../context/AuthContext";
 
 const style = {
 	position: "absolute",
@@ -33,6 +34,8 @@ function ContentModal({ children, media_type, id }) {
 	const handleClose = () => setOpen(false);
 	const [content, setContent] = useState();
 	const [video, setVideo] = useState();
+
+	const { user } = UserAuth();
 
 	/** Fetch data of single content
 	 * media_type: tv or movie
@@ -127,10 +130,15 @@ function ContentModal({ children, media_type, id }) {
 										>
 											Watch the Trailer
 										</Button>
-
-										<Button variant="contained" color="primary" className="btn">
-											Add To List
-										</Button>
+										{user ? (
+											<Button
+												variant="contained"
+												color="primary"
+												className="btn"
+											>
+												Add To List
+											</Button>
+										) : null}
 									</Stack>
 								</div>
 							</div>
