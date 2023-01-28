@@ -29,7 +29,7 @@ function App() {
 							<Route path="/trending" element={<Trending />} />
 							<Route path="/movies" element={<Movies />} />
 							<Route path="/tvshows" element={<TV />} />
-							<Route path="/list" element={<List />} />
+							<Route path="/mylist" element={<List />} />
 							<Route path="/search" element={<Search />} />
 						</Routes>
 					</Container>

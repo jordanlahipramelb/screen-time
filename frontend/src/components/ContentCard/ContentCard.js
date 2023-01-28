@@ -1,13 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import { img_300 } from "../../config/config";
 import unavailablePoster from "../../assets/portrait-unavailable.jpg";
 import "./ContentCard.scss";
 import { Badge } from "@mui/material";
 import ContentModal from "../ContentModal/ContentModal";
+import { UserAuth } from "../../context/AuthContext";
+import { onAuthStateChanged } from "firebase/auth";
+import axios from "axios";
+import { firebaseAuth } from "../../utils/firebase-config";
+import { useNavigate } from "react-router-dom";
 
 const ContentCard = ({ id, title, poster, date, media_type, vote_rating }) => {
+	const [email, setEmail] = useState(undefined);
+	const { user } = UserAuth();
+	const navigate = useNavigate();
+
+	onAuthStateChanged(firebaseAuth, (currentUser) => {
+		if (currentUser) {
+			setEmail(currentUser.email);
+		} else navigate("/login");
+	});
+
+	const removeFromList = async () => {
+		try {
+			await axios.put("http://localhost:3001/api/user/remove", {
+				email,
+				id,
+			});
+		} catch (err) {
+			console.log(err);
+		}
+	};
 	return (
-		<ContentModal media_type={media_type} id={id}>
+		<ContentModal
+			media_type={media_type}
+			contentId={id}
+			title={title}
+			poster={poster}
+			date={date}
+			vote_rating={vote_rating}
+		>
 			<Badge
 				badgeContent={vote_rating.toString().slice(0, 3)}
 				color={vote_rating > 6 ? "primary" : "secondary"}

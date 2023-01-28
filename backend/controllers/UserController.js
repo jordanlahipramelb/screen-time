@@ -7,7 +7,7 @@ class UserController {
 			// console.log(email);
 			const user = await User.findOne({ email });
 			if (user) {
-				return res.json({ msg: "success", movies: user.likedMovies });
+				return res.json({ msg: "success", content: user.likedMovies });
 			} else return res.json(`User with email ${email} not found.`);
 		} catch (error) {
 			return res.json({ msg: "Error fetching movies." });
@@ -49,14 +49,14 @@ class UserController {
 
 	static async removeFromLikedMovies(req, res) {
 		try {
-			const { email, movieId } = req.body;
+			const { email, contentId } = req.body;
 			const user = await User.findOne({ email });
 
 			if (user) {
 				const movies = user.likedMovies;
 
 				// Find index of movie in likedList in order to remove it
-				const movieIdx = movies.findIndex(({ id }) => id === movieId);
+				const movieIdx = movies.findIndex(({ id }) => id === contentId);
 
 				if (!movieIdx) {
 					res.status(400).send({ msg: "Movie not found." });
