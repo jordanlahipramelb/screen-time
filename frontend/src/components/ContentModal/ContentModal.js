@@ -11,7 +11,14 @@ import axios from "axios";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import "./ContentModal.scss";
 import { Stack } from "@mui/system";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// Firebase
+import { firebaseAuth } from "../../utils/firebase-config";
 import { UserAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const style = {
 	position: "absolute",
@@ -28,14 +35,30 @@ const style = {
 	p: 4,
 };
 
-function ContentModal({ children, media_type, id }) {
+function ContentModal({
+	children,
+	media_type,
+	contentId,
+	title,
+	poster,
+	date,
+	vote_rating,
+}) {
 	const [open, setOpen] = React.useState(false);
-	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
 	const [content, setContent] = useState();
 	const [video, setVideo] = useState();
+	const [email, setEmail] = useState(undefined);
+
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
+
+	const navigate = useNavigate();
 
 	const { user } = UserAuth();
+
+	const showAddMsg = () => {
+		toast.success("Movie Added!");
+	};
 
 	/** Fetch data of single content
 	 * media_type: tv or movie
@@ -43,7 +66,7 @@ function ContentModal({ children, media_type, id }) {
 	 */
 	const fetchSingleData = async () => {
 		const { data } = await axios.get(
-			`https://api.themoviedb.org/3/${media_type}/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+			`https://api.themoviedb.org/3/${media_type}/${contentId}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
 		);
 
 		setContent(data);
@@ -51,10 +74,22 @@ function ContentModal({ children, media_type, id }) {
 
 	const fetchVideo = async () => {
 		const { data } = await axios.get(
-			`https://api.themoviedb.org/3/${media_type}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+			`https://api.themoviedb.org/3/${media_type}/${contentId}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
 		);
 
 		setVideo(data.results[0]?.key);
+	};
+
+	const addToList = async () => {
+		try {
+			// retrieve email in order to match email in users DB
+			await axios.post("http://localhost:3001/api/user/add", {
+				email,
+				data: { contentId, media_type, title, poster, date, vote_rating },
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	useEffect(() => {
@@ -135,6 +170,10 @@ function ContentModal({ children, media_type, id }) {
 												variant="contained"
 												color="primary"
 												className="btn"
+												onClick={() => {
+													showAddMsg();
+													addToList();
+												}}
 											>
 												Add To List
 											</Button>
