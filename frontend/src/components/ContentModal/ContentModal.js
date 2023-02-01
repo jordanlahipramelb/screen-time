@@ -39,15 +39,15 @@ function ContentModal({
 	children,
 	media_type,
 	contentId,
-	title,
-	poster,
-	date,
-	vote_rating,
+	// title,
+	// poster,
+	// date,
+	// vote_rating,
+	// email,
 }) {
 	const [open, setOpen] = React.useState(false);
 	const [content, setContent] = useState();
 	const [video, setVideo] = useState();
-	const [email, setEmail] = useState(undefined);
 
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
@@ -80,17 +80,21 @@ function ContentModal({
 		setVideo(data.results[0]?.key);
 	};
 
-	const addToList = async () => {
-		try {
-			// retrieve email in order to match email in users DB
-			await axios.post("http://localhost:3001/api/user/add", {
-				email,
-				data: { contentId, media_type, title, poster, date, vote_rating },
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+	// const addToList = async () => {
+	// 	try {
+	// 		console.log("trying to add movie", {
+	// 			email,
+	// 			data: { contentId, media_type, title, poster, date, vote_rating },
+	// 		});
+	// 		// retrieve email in order to match email in users DB
+	// 		await axios.post("http://localhost:3001/api/user/add", {
+	// 			email,
+	// 			data: { contentId, media_type, title, poster, date, vote_rating },
+	// 		});
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// };
 
 	useEffect(() => {
 		fetchSingleData();
@@ -165,19 +169,33 @@ function ContentModal({
 										>
 											Watch the Trailer
 										</Button>
-										{user ? (
-											<Button
-												variant="contained"
-												color="primary"
-												className="btn"
-												onClick={() => {
-													showAddMsg();
-													addToList();
-												}}
-											>
-												Add To List
-											</Button>
-										) : null}
+										{/* {user ? (
+											<>
+												<Button
+													variant="contained"
+													color="primary"
+													className="btn"
+													onClick={() => {
+														showAddMsg();
+														addToList();
+													}}
+												>
+													Add To List
+												</Button>
+												<ToastContainer
+													position="top-center"
+													autoClose={1000}
+													hideProgressBar={false}
+													newestOnTop
+													closeOnClick
+													rtl={false}
+													pauseOnFocusLoss
+													draggable
+													pauseOnHover
+													theme="colored"
+												/>
+											</>
+										) : null} */}
 									</Stack>
 								</div>
 							</div>

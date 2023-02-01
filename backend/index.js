@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 mongoose
-	.connect("mongodb://localhost:27017/movies-app", {
+	.connect("mongodb://localhost:27017/screen-time", {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 	})

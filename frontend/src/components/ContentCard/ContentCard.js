@@ -31,8 +31,26 @@ const ContentCard = ({ id, title, poster, date, media_type, vote_rating }) => {
 			console.log(err);
 		}
 	};
+
+	const addToList = async () => {
+		try {
+			console.log("trying to add movie", {
+				email,
+				data: { id, media_type, title, poster, date, vote_rating },
+			});
+			// retrieve email in order to match email in users DB
+			await axios.post("http://localhost:3001/api/user/add", {
+				email,
+				data: { id, media_type, title, poster, date, vote_rating },
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<ContentModal
+			email={email}
 			media_type={media_type}
 			contentId={id}
 			title={title}
