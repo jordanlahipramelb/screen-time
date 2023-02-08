@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
+import { Stack } from "@mui/system";
+import YouTubeIcon from "@mui/icons-material/YouTube";
 import { img_500 } from "../../config/config";
 import unavailable from "../../assets/portrait-unavailable.jpg";
 import unavailableLandscape from "../../assets/landscape-unavailable.jpg";
-import axios from "axios";
-import YouTubeIcon from "@mui/icons-material/YouTube";
 import "./ContentModal.scss";
-import { Stack } from "@mui/system";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -35,16 +35,7 @@ const style = {
 	p: 4,
 };
 
-function ContentModal({
-	children,
-	media_type,
-	contentId,
-	// title,
-	// poster,
-	// date,
-	// vote_rating,
-	// email,
-}) {
+function ContentModal({ children, media_type, contentId }) {
 	const [open, setOpen] = React.useState(false);
 	const [content, setContent] = useState();
 	const [video, setVideo] = useState();
@@ -52,17 +43,9 @@ function ContentModal({
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 
-	const navigate = useNavigate();
-
-	const { user } = UserAuth();
-
-	const showAddMsg = () => {
-		toast.success("Movie Added!");
-	};
-
 	/** Fetch data of single content
 	 * media_type: tv or movie
-	 * id: id of content
+	 * contentId: id of content
 	 */
 	const fetchSingleData = async () => {
 		const { data } = await axios.get(
@@ -79,22 +62,6 @@ function ContentModal({
 
 		setVideo(data.results[0]?.key);
 	};
-
-	// const addToList = async () => {
-	// 	try {
-	// 		console.log("trying to add movie", {
-	// 			email,
-	// 			data: { contentId, media_type, title, poster, date, vote_rating },
-	// 		});
-	// 		// retrieve email in order to match email in users DB
-	// 		await axios.post("http://localhost:3001/api/user/add", {
-	// 			email,
-	// 			data: { contentId, media_type, title, poster, date, vote_rating },
-	// 		});
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// };
 
 	useEffect(() => {
 		fetchSingleData();
@@ -169,33 +136,6 @@ function ContentModal({
 										>
 											Watch the Trailer
 										</Button>
-										{/* {user ? (
-											<>
-												<Button
-													variant="contained"
-													color="primary"
-													className="btn"
-													onClick={() => {
-														showAddMsg();
-														addToList();
-													}}
-												>
-													Add To List
-												</Button>
-												<ToastContainer
-													position="top-center"
-													autoClose={1000}
-													hideProgressBar={false}
-													newestOnTop
-													closeOnClick
-													rtl={false}
-													pauseOnFocusLoss
-													draggable
-													pauseOnHover
-													theme="colored"
-												/>
-											</>
-										) : null} */}
 									</Stack>
 								</div>
 							</div>

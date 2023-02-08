@@ -35,7 +35,7 @@ const TV = () => {
 							title={c.title || c.name}
 							poster={c.poster_path}
 							date={c.release_date || c.first_air_date}
-							media_type="tv"
+							media_type={"tv"} // ! sometimes crashes the page when a card it clicked
 							vote_rating={c.vote_average}
 						/>
 					))}

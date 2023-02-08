@@ -3,6 +3,7 @@ import "./App.scss";
 import Header from "./components/Header/Header";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Container } from "@mui/system";
+
 import { AuthContextProvider } from "./context/AuthContext";
 
 import Trending from "./Pages/Trending/Trending";
@@ -29,7 +30,7 @@ function App() {
 							<Route path="/trending" element={<Trending />} />
 							<Route path="/movies" element={<Movies />} />
 							<Route path="/tvshows" element={<TV />} />
-							<Route path="/mylist" element={<List />} />
+							<Route path="/list" element={<List />} />
 							<Route path="/search" element={<Search />} />
 						</Routes>
 					</Container>

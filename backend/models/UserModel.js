@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema({
 	},
 
 	// array of liked movies
-	likedMovies: Array,
+	likedContent: [],
 });
 
 module.exports = mongoose.model("users", UserSchema);

@@ -6,19 +6,12 @@ import TextField from "@mui/material/TextField";
 import { Button, Container } from "@mui/material";
 import { Stack } from "@mui/system";
 
-// Firebase
-import { onAuthStateChanged } from "firebase/auth";
-import { firebaseAuth } from "../../utils/firebase-config";
-import { UserAuth } from "../../context/AuthContext";
-
 const Login = () => {
 	const [formData, setFormData] = useState({
 		email: "",
 		password: "",
 	});
 	const navigate = useNavigate();
-	const [error, setError] = useState("");
-	const { logIn } = UserAuth();
 
 	/** Updates form field when typing */
 
@@ -32,20 +25,16 @@ const Login = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		setError("");
-		try {
-			await logIn(formData.email, formData.password);
-			navigate("/trending");
-		} catch (error) {
-			console.log(error);
-			alert(error);
-			setError(error.message);
-		}
+		// setError("");
+		// try {
+		// 	await logIn(formData.email, formData.password);
+		// 	navigate("/");
+		// } catch (error) {
+		// 	console.log(error);
+		// 	alert(error);
+		// 	setError(error.message);
+		// }
 	};
-
-	onAuthStateChanged(firebaseAuth, (currentUser) => {
-		if (currentUser) navigate("/trending");
-	});
 
 	return (
 		<div className="auth-page">
@@ -54,7 +43,7 @@ const Login = () => {
 					<h3>Log In</h3>
 					<small>Welcome back!</small>
 				</div>
-				{error ? <p>{error.message}</p> : null}
+
 				<form onSubmit={handleSubmit}>
 					<Stack spacing={1}>
 						<TextField
@@ -75,7 +64,7 @@ const Login = () => {
 							onChange={handleChange}
 						/>
 					</Stack>
-					<Button onClick={handleSubmit}>Log In</Button>
+					<Button>Log In</Button>
 				</form>
 			</div>
 		</div>

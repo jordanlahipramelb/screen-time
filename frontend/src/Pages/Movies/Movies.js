@@ -15,6 +15,8 @@ const Movies = () => {
 		);
 		setContent(data.results);
 		setNumOfPages(data.total_pages);
+
+		console.log(data);
 	};
 
 	useEffect(() => {
@@ -36,7 +38,7 @@ const Movies = () => {
 							title={c.title || c.name}
 							poster={c.poster_path}
 							date={c.release_date || c.first_air_date}
-							media_type="movie"
+							media_type={"movie"} // ! doing this keeps crashing the page when a card it clicked
 							vote_rating={c.vote_average}
 						/>
 					))}

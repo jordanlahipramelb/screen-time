@@ -7,7 +7,7 @@ class UserController {
 			// console.log(email);
 			const user = await User.findOne({ email });
 			if (user) {
-				return res.json({ msg: "success", content: user.likedMovies });
+				return res.json({ msg: "success", content: user.likedContent });
 			} else return res.json(`User with email ${email} not found.`);
 		} catch (error) {
 			return res.json({ msg: "Error fetching movies." });
@@ -22,24 +22,24 @@ class UserController {
 
 			// If user exists, add movie to their list
 			if (user) {
-				const { likedMovies } = user;
+				const { likedContent } = user;
 
 				// Find if the movie is already liked
-				const alreadyLiked = likedMovies.find(({ id }) => id === data.id);
+				const alreadyLiked = likedContent.find(({ id }) => id === data.id);
 
 				// If movies not liked, find the user and spread its previous movies/add new movie
 				if (!alreadyLiked) {
 					await User.findByIdAndUpdate(
 						user._id,
 						{
-							likedMovies: [...user.likedMovies, data],
+							likedContent: [...user.likedContent, data],
 						},
 						{ new: true }
 					);
 				} else return res.json({ msg: `Movie already exists in list.` });
 			}
 			// If user does not exist in DB, create the User and add the movie to their list
-			else await User.create({ email, likedMovies: [data] });
+			else await User.create({ email, likedContent: [data] });
 
 			return res.json({ msg: "Movie successfully added to list." });
 		} catch (err) {
@@ -53,7 +53,7 @@ class UserController {
 			const user = await User.findOne({ email });
 
 			if (user) {
-				const movies = user.likedMovies;
+				const movies = user.likedContent;
 
 				// Find index of movie in likedList in order to remove it
 				const movieIdx = movies.findIndex(({ id }) => id === contentId);
@@ -65,11 +65,11 @@ class UserController {
 				// remove movie from liked movies
 				movies.splice(movieIdx, 1);
 
-				// update User table with new likedMovies data
+				// update User table with new likedContent data
 				await User.findByIdAndUpdate(
 					user._id,
 					{
-						likedMovies: movies,
+						likedContent: movies,
 					},
 					{ new: true }
 				);
